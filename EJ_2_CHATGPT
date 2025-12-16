@@ -1,0 +1,33 @@
+import re
+
+def filtrar_telefonos_validos(telefonos):
+    validos = []
+
+    for telefono in telefonos:
+        limpio = telefono.replace("-", "")  # quitamos guiones
+
+        if re.fullmatch(r"[679][0-9]{8}", limpio):
+            validos.append(telefono)
+
+    return validos
+
+
+def main():
+    telefonos = [
+        "612345678",
+        "712345678",
+        "912345678",
+        "512345678",   # ❌ empieza por 5
+        "61234",       # ❌ corto
+        "612-345-678"  # ❌ guiones
+    ]
+
+    resultado = filtrar_telefonos_validos(telefonos)
+
+    print("Teléfonos válidos:")
+    for t in resultado:
+        print(t)
+
+
+if __name__ == "__main__":
+    main()
