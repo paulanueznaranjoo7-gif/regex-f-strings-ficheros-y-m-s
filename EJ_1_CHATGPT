@@ -1,0 +1,32 @@
+import re
+
+def filtrar_emails_validos(emails):
+    pattern = r"([a-z][a-z0-9.\-_]*@[a-z]+\.[a-z])"
+    validos = []
+
+    for email in emails:
+        if re.match(pattern, email):
+            validos.append(email)
+
+    return validos
+
+
+def main():
+    emails = [
+        "juan.perez@gmail.com",
+        "ana_23@yahoo.es",
+        "correo-invalido@.com",
+        "maria@empresa.org",
+        "pedro@gmail"
+    ]
+
+    resultado = filtrar_emails_validos(emails)
+
+    print("Emails válidos:")
+    for email in resultado:
+        print(email)
+
+
+if __name__ == "__main__":
+    main()
+
