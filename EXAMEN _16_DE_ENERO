@@ -1,0 +1,44 @@
+import re
+def islaCV(flota, isla, marca):
+    dic_matricula, dic_isla = flota
+    pattern = pattern = r"^(\d{6})[- ]?([A-Z]{2})$"
+
+    
+    if isla in dic_isla:
+        suma = 0
+        matriculas = dic_isla[isla]
+        for matricula in matriculas:
+            m = re.fullmatch(pattern, matricula)
+            if m:
+                numeros = m.group(1)
+                letras = m.group(2)
+                nueva_matricula = numeros + "-" + letras
+                if nueva_matricula in dic_matricula:
+                    marca_, gasolina, CV = dic_matricula[matricula]
+                    if marca_ == marca:
+                        suma += CV
+    return isla, suma
+
+def main():
+    flota = (
+        {
+            "524967-AB": ("Mercedes", "gasolina", 230),
+            "852364-JZ": ("AUDI", "diesel", 200),
+            "480925-BM": ("FIAT", "hidrógeno", 120),
+            "753951-QT": ("AUDI", "eléctrico", 180)
+        },
+        {
+            "Fuerteventura": ["524967-AB", "852364-JZ"],
+            "Lanzarote": ["524967-AB", "852364-JZ", "480925-BM", "753951-QT"],
+            "Tenerife": ["524967-AB", "480925-BM", "753951-QT"],
+            "Gran Canaria": ["524967-AB", "480925-BM"]
+        }
+    )
+
+    resultado = islaCV(flota, "Lanzarote", "AUDI")
+    print(resultado)
+
+
+if __name__ == "__main__":
+    main()
+
