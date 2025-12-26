@@ -1,0 +1,27 @@
+import re
+def copiar_palabras_largas():
+    datos = []
+    with open("entrada.txt", "r") as f_in, open("salida.txt", "w") as f_out:
+        for linea in f_in:
+            contador_palabra = 0
+            pattern = r"([a-z]{6,})"            
+            palabras = re.findall(pattern, linea.lower())
+            for palabra in palabras:
+                for item in datos:
+                    if item == palabra:
+                        break
+                else:
+                    datos.append(palabra)
+        datos.sort()
+        for palabra in datos:
+            f_out.write(palabra + "=" + str(len(palabra)) + "\n")
+            
+    return len(datos)
+                
+
+def main():
+    total = copiar_palabras_largas()
+    print("Se han escrito", total, "palabras distintas")
+
+if __name__ == "__main__":
+    main()
