@@ -1,0 +1,19 @@
+def copiar_lineas_largas():
+    with open("entrada.txt", "r") as fichero, open("salida.txt", "w") as fichero_salida:
+        contador = 0
+        for linea in fichero:
+            new_line = linea.strip()
+            cantidad = len(new_line)
+            if cantidad >= 20:
+                fichero_salida.write(linea)
+                contador += 1
+    return contador
+            
+
+
+def main():
+    total = copiar_lineas_largas()
+    print("Se han copiado", total, "líneas")
+
+if __name__ == "__main__":
+    main()
