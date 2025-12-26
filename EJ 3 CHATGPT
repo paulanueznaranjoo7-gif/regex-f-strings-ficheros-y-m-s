@@ -1,0 +1,20 @@
+def contar_palabras():
+    with open("texto.txt", "r") as fichero, open("longitud.txt", "w") as fichero_salida:
+        contador = 0
+        for linea in fichero:
+            palabras = linea.split()
+            for palabra in palabras:
+                fichero_salida.write(palabra)
+                contador += 1
+                print(contador)
+    return contador
+                
+
+
+
+def main():
+    total = contar_palabras()
+    print("Total de palabras:", total)
+
+if __name__ == "__main__":
+    main()
