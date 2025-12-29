@@ -1,0 +1,22 @@
+import re
+def añadir_palabras_largas():
+    with open("entrada.txt", "r") as f_in, open("salida.txt", "a") as f_out:
+        contador = 0
+        pattern = r"([A-Za-z]{6,})"
+        for linea in f_in:
+            palabras = linea.split()
+            for palabra in palabras:
+                m = re.fullmatch(pattern, palabra) #compruebo una palabra completa, uso fullmatch
+                if m:
+                    f_out.write(palabra)
+                    contador += 1
+    return contador
+                
+            
+
+
+def main():
+    t = añadir_palabras_largas()
+    print("Palabras añadidas a salida.txt", t)
+
+main()
