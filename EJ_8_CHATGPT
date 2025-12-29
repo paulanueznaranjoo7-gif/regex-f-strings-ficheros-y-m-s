@@ -1,1 +1,34 @@
+def generar_resumen():
+    with open("ventas.cvs", "r") as f_in, open("resumen.txt", "w") as f_out:
+        total = 0.0 #es float ponemos 0.0
+        for linea in f_in:
+            producto, precio, cantidad = linea.strip().split(",")
+            int_p = float(precio)
+            int_c = float(cantidad)
+            resultado = int_p * int_c 
+            total += resultado
+            f_out.write(producto + ": " + str(resultado) + " €\n")
 
+        f_out.write("TOTAL GENERAL: " + str(total) + " €\n")
+
+def main():
+    generar_resumen()
+    print("Resumen generado correctamente")
+    
+#VENTAS.CVS
+#Libro,12.5,3
+#Cuaderno,2.0,10
+#Bolígrafo,1.2,5
+
+
+
+
+main()
+def main():
+    generar_resumen()
+    print("Contenido de resumen.txt:")
+
+    with open("resumen.txt", "r") as f:
+        print(f.read())
+
+main()
