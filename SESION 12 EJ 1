@@ -1,0 +1,23 @@
+import re
+def norm_mat(matricula):
+    pattern = r"([1-9]{4})[- ]?([A-Z]{3})"
+    m = re.fullmatch(pattern, matricula)
+    for matricula in matriculas_val + matriculas_inv:
+        if m:
+            if "-" not in matricula:
+                first = m.group(1)
+                second = m.group(2)
+                result = f"{first}-{second}"
+    return result
+
+if __name__ == "__main__":
+    matriculas_val = ["1234ABC", "1234 ABC", "1234-ABC"]
+    matriculas_inv = ["12345ABC", "1234-abc", "1234  ABC"]
+
+    for matricula in matriculas_val + matriculas_inv:
+        normalizada = norm_mat(matricula)
+
+        if normalizada:
+            print(f"{matricula} -> {normalizada}")
+        else:
+            print(f"{matricula} -> Matricula no válida")
