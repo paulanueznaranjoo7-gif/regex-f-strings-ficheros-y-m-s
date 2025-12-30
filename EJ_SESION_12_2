@@ -1,0 +1,37 @@
+import re
+def load_car_data(fichero):
+    tupla = []
+    dic_matriculas = {}
+    dic_marcas = {}
+    dic_islas = {}
+    with open(fichero, "r") as f_in, open("errors.log", "w") as f_out:
+        pattern = r"^([1-9]{4})([A-Z]{3});[A-Za-z0-9]+;[A-Za-z0-9]+;(combustión|híbrido|eléctrico);([1-9]?\d|[12]\d{2}|300);(La Palma|El Hierro|La Gomera|Tenerife|Gran Canaria|Fuerteventura|Lanzarote)$"
+        for linea in f_in:
+            linea = linea.strip()
+            m = re.fullmatch(pattern, linea)
+            if not m:
+                f_out.write(linea)
+                continue
+            primera_parte = m.group(1)
+            segunda = m.group(2)
+            matricula, marcas, modelo, motor, potencia, isla = linea.split(";")
+            matricula_norm = primera_parte + "-" + segunda
+            dic_matriculas[matricula_norm] = marcas, modelo, motor, potencia, isla
+            if marcas not in dic_marcas:
+                dic_marcas[marcas] = []
+                dic_marcas[marcas].append(matricula_norm)
+            if isla not in dic_islas:
+                dic_islas[isla] = []
+                dic_islas[isla].append(matricula_norm)
+    tupla = dic_matriculas, dic_marcas, dic_islas
+    return tupla
+    
+#1234ABC;Toyota;Corolla;híbrido;140;Fuerteventura
+#35567ODH;Ford;Focus;combustión;530;El Hierro
+#9889DEF;Opel;Astra;combustión;130;La Palma            
+            
+            
+
+if __name__ == "__main__":
+    resultado = load_car_data("file00.csv")
+    print(resultado)
