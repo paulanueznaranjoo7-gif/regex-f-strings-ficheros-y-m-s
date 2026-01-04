@@ -1,0 +1,43 @@
+def check_user_data():
+    resultados = []
+
+    with open("users.txt", "r") as f_in:
+        pattern_user  = r"^[a-z0-9]{5,10}$"
+        pattern_email = r"^[a-z0-9]+@[a-z0-9]+\.[a-z]{2,3}$"
+        pattern_edad  = r"^(1[89]|[2-9][0-9])$"
+        pattern_pais  = r"^(Spain|Italy|France|Germany)$"
+
+        for linea in f_in:
+            palabras = linea.strip().split(";")
+
+            if len(palabras) != 4:
+                resultados.append(linea.strip())
+                continue
+
+            if not re.fullmatch(pattern_user, palabras[0]):
+                resultados.append(linea.strip())
+                continue
+
+            if not re.fullmatch(pattern_email, palabras[1]):
+                resultados.append(linea.strip())
+                continue
+
+            if not re.fullmatch(pattern_edad, palabras[2]):
+                resultados.append(linea.strip())
+                continue
+
+            if not re.fullmatch(pattern_pais, palabras[3]):
+                resultados.append(linea.strip())
+                continue
+
+            # ✔ línea válida → guardamos lista
+            resultados.append(palabras)
+
+    return resultados
+
+            
+
+
+if __name__ == "__main__":
+    resultado = check_user_data()
+    print(resultado)
