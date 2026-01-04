@@ -1,0 +1,19 @@
+import re
+def get_emails(texto_prueba):
+    pattern = r"[a-z0-9]+[._-]?[a-z0-9]+?@[a-z0-9]+(\.[a-z0-9]+)?\.[a-z]{2,5}"
+    lista = []
+    
+    for match in re.finditer(pattern, texto_prueba):
+        objeto = match.group()
+        indice = match.start()
+        lista.append((objeto, indice))
+        return lista
+        
+        
+        
+        
+    
+if __name__ == "__main__":
+    texto_prueba = "Contacta con juan.garcia@empresa.com para consultas."
+    emails = get_emails(texto_prueba)
+    print(emails)
