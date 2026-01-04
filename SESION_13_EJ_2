@@ -1,1 +1,19 @@
+import re
+
+def unique_emails(nombre_fichero):
+    pattern = r"[a-z0-9]+[._-]?[a-z0-9]+@[a-z0-9]+(?:\.[a-z0-9]+)+"
+    resultado = set()
+
+    with open(nombre_fichero, "r") as f_in:
+        for linea in f_in:
+            emails = re.findall(pattern, linea.lower())
+            for email in emails:
+                resultado.add(email)
+
+    return sorted(resultado)
+
+
+if __name__ == "__main__":
+    resultado = unique_emails("texto_de_prueba.txt")
+    print(resultado)
 
