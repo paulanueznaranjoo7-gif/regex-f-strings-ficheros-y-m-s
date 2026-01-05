@@ -1,0 +1,35 @@
+def guardar_enteros(numeros, fichero_pares, fichero_impares):
+    with open("pares.txt", "w") as f_in1, open("impares.txt", "w") as f_in2:
+        for numero in numeros:
+            if numero % 2 == 0:
+                f_in1.write(f"{numero:6d}\n")
+            else:
+                f_in2.write(f"{numero:6d}\n")
+
+def leer_enteros(fichero_pares, fichero_impares):
+    with open("pares.txt", "r") as f_in1, open("impares.txt", "r") as f_in2:
+        resultado = []
+        pares = f_in1.readlines()
+        impares = f_in2.readlines()
+        i = 0
+        while i < len(pares) or i < len(impares):
+            if i < len(pares):
+                resultado.append(pares[i].strip())
+            if i < len(impares):
+                resultado.append(impares[i].strip())
+            i += 1
+
+    return resultado    
+
+
+if __name__ == "__main__":
+    numeros = [12, 7, 5, 20, 9, 4, 3]
+
+    fichero_pares = "pares.txt"
+    fichero_impares = "impares.txt"
+
+    guardar_enteros(numeros, fichero_pares, fichero_impares)
+
+    resultado = leer_enteros(fichero_pares, fichero_impares)
+
+    print(resultado)
