@@ -1,0 +1,39 @@
+import re
+def recuperar_correos(fichero_entrada, fichero_salida):
+    with open("texto.txt", "r") as f_in1, open("salida.txt", "w") as f_in2:
+        pattern = r"[a-z0-9_.]+@[a-z0-9_.-]+\.[a-z]{2,}"
+        contador = 0
+        for linea in f_in1:
+            correos = re.findall(pattern, linea)
+            if correos:
+                for correo in correos:
+                    f_in2.write(f"{correo:<30} OK\n")
+                    contador += 1
+        f_in2.write(f"Total correos: {contador}\n")
+
+def comprobar_salida(nombre_fichero):
+    with open(nombre_fichero, "r") as f:
+        contenido = f.read()
+
+        if contenido == "":
+            print("El fichero está vacío.")
+        else:
+            print("Contenido del fichero:")
+            print(contenido)
+
+if __name__ == "__main__":
+    fichero_entrada = "texto.txt"
+    fichero_salida = "salida.txt"
+
+    recuperar_correos(fichero_entrada, fichero_salida)
+    comprobar_salida(fichero_salida)
+                    
+                
+
+if __name__ == "__main__":
+    fichero_entrada = "texto.txt"
+    fichero_salida = "salida.txt"
+
+    recuperar_correos(fichero_entrada, fichero_salida)
+
+    print("Proceso terminado. Revisa el fichero de salida.")
