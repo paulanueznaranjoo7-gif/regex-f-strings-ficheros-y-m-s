@@ -1,0 +1,38 @@
+import re
+def normalizar_fechas(fichero_entrada, fichero_salida):
+    with open(fichero_entrada, "r") as f_in, open(fichero_salida, "w") as f_out:
+        pattern = r"(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(20\d{2})"
+        contador = 0
+        for linea in f_in:
+            for m in re.finditer(pattern, linea):
+                dia = m.group(1)
+                mes = m.group(2)
+                año = m.group(3)
+                nuevo_grupo = f"({año}-{mes}-{dia})"
+                f_out.write(f"{nuevo_grupo:>12}\n)")
+                contador += 1
+        x = f_out.write(f"Total fechas: {contador}\n")
+    return x
+
+
+if __name__ == "__main__":
+    fichero_entrada = "fechas.txt"
+    fichero_salida = "salida_fechas.txt"
+
+    normalizar_fechas(fichero_entrada, fichero_salida)
+
+    print("Proceso terminado. Revisa el fichero de salida.")
+def leer_salida(nombre_fichero):
+    f = open(nombre_fichero, "r")
+    contenido = f.read()
+    f.close()
+
+    if contenido == "":
+        print("El fichero está vacío.")
+    else:
+        print("Contenido del fichero:")
+        print(contenido)
+
+if __name__ == "__main__":
+    leer_salida("salida_fechas.txt")
+  
