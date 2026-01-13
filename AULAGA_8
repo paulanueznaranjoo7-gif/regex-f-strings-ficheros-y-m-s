@@ -1,0 +1,42 @@
+def guardar_personas(personas, fichero):
+    with open(fichero, "w") as f_in:
+        for persona in personas:
+            nombre = persona[0]
+            edad = persona[1]
+            f_in.write(f"{nombre}-{edad}años\n")
+        
+def leer_personas(fichero):
+    lista = []
+    resultado = set()
+    with open(fichero, "r") as f_in:
+        for linea in f_in:
+            elemento = linea.strip().split("-")
+            nombre = elemento[0]
+            edad = elemento[1].replace("años", "")
+            resultado.add((nombre, edad))
+    lista.append(resultado)
+    return lista
+            
+
+if __name__ == "__main__":
+    personas = [
+        ("Ana", 20),
+        ("Luis", 25),
+        ("Ana", 20),
+        ("María", 30),
+        ("Luis", 25),
+        ("Pedro", 40)
+    ]
+
+    fichero = "personas.txt"
+
+    # Guardar personas en el fichero (sin duplicados)
+    guardar_personas(personas, fichero)
+
+    print("Personas guardadas en el fichero.")
+
+    # Leer personas del fichero
+    resultado = leer_personas(fichero)
+
+    print("Personas leídas del fichero:")
+    print(resultado)
