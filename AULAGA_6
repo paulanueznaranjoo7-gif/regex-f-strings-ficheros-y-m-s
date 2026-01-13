@@ -1,0 +1,45 @@
+def guardar_calificaciones(asignaturas, codigos, fichero):
+    for codigo in codigos:
+        if codigo in asignaturas:
+            valor = asignaturas[codigo]
+            if valor[1] > 5:
+                f"{codigo}:{valor[0]}:{valor[1]}"
+                
+def leer_calificaciones(fichero):
+    dic = {}
+    with open(fichero, "r") as f_in:
+        for linea in f_in:
+            palabras = linea.strip().split(":")
+            if palabras[0] not in dic:
+                dic[palabras[0]] = []
+                dic[palabras[0]] = (palabras[1], palabras[2])
+    return dic
+    
+
+
+
+           
+if __name__ == "__main__":
+    fichero = "calificaciones.txt"
+
+    resultado = leer_calificaciones(fichero)
+    print(resultado)
+
+
+if __name__ == "__main__":
+    asignaturas = {
+        "MAT": ("Matemáticas", 7.5),
+        "HIS": ("Historia", 4.2),
+        "ING": ("Inglés", 8.0),
+        "FIS": ("Física", 5.5),
+        "QUI": ("Química", 3.9)
+    }
+
+    codigos = ["MAT", "HIS", "ING", "FIS", "QUI"]
+    fichero = "calificaciones.txt"
+
+    guardar_calificaciones(asignaturas, codigos, fichero)
+
+    resultado = leer_calificaciones(fichero)
+
+
