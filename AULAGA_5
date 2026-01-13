@@ -1,0 +1,49 @@
+import re
+
+
+def recuperar_telefonos(fichero_entrada, fichero_no_900, fichero_900):
+    # +34 opcional, luego 3 bloques de 3 cifras
+    pattern = r"(?:\+34[\s-]?)?(\d{3})[\s-]?(\d{3})[\s-]?(\d{3})"
+    total = 0
+
+    with open(fichero_entrada, "r") as f_in, \
+         open(fichero_no_900, "w") as f_out1, \
+         open(fichero_900, "w") as f_out2:
+
+        for linea in f_in:
+            for m in re.finditer(pattern, linea):
+
+                g1 = m.group(1)
+                g2 = m.group(2)
+                g3 = m.group(3)
+
+                telefono = g1 + g2 + g3   # normalizado: 9 dígitos
+                total += 1
+
+                if telefono.startswith("900"):
+                    f_out2.write(f"{telefono} Tel\n")
+                else:
+                    f_out1.write(f"{telefono} Tel\n")
+
+        f_out1.write(f"Total teléfonos: {total}\n")
+        f_out2.write(f"Total teléfonos: {total}\n")
+
+
+def leer_fichero(nombre):
+    f = open(nombre, "r")
+    contenido = f.read()
+    f.close()
+
+    print(f"\nContenido de {nombre}:")
+    print(contenido)
+
+
+if __name__ == "__main__":
+    fichero_entrada = "telefonos.txt"
+    fichero_no_900 = "telefonos_normales.txt"
+    fichero_900 = "telefonos_900.txt"
+
+    recuperar_telefonos(fichero_entrada, fichero_no_900, fichero_900)
+
+    leer_fichero(fichero_no_900)
+    leer_fichero(fichero_900)
