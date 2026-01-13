@@ -1,0 +1,36 @@
+import re
+def recuperar_mayusculas(fichero_entrada, fichero_salida):
+    with open(fichero_entrada, "r") as f_in, open(fichero_salida, "w") as f_out:
+        pattern = r"([A-Z]{3,})"
+        contar_todas = 0
+        for linea in f_in:
+            mayuscula = re.findall(pattern, linea)
+            contar_todas += 1
+            if mayuscula:
+                for palabra in mayuscula:
+                    f_out.write(f"{palabra:*^20};")
+                    contar_todas += 1
+                f_out.write("\n")
+            else:
+                f_out.write("\n")
+                    
+
+        f_out.write(f"Total mayúscula:{contar_todas}\n")
+        
+                    
+                    
+        
+if __name__ == "__main__":
+    fichero_entrada = "texto.txt"
+    fichero_salida = "salida_mayusculas.txt"
+
+    recuperar_mayusculas(fichero_entrada, fichero_salida)
+
+    print("Proceso terminado.")
+    print("Revisa el fichero:", fichero_salida)
+
+    # Mostrar el contenido del fichero de salida para comprobar
+    print("\nContenido del fichero de salida:")
+    f = open(fichero_salida, "r")
+    print(f.read())
+    f.close()
