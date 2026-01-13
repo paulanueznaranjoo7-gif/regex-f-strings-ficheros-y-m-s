@@ -1,0 +1,41 @@
+import re
+def recuperar_ips(fichero_entrada, fichero_salida):
+    with open(fichero_entrada, "r") as f_in, open(fichero_salida, "w") as f_out:
+        pattern = pattern = r"\b(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}\b"
+        contador = 0
+        for linea in f_in:
+            ips = re.findall(pattern, linea)
+            if ips:
+                f_out.write(f"{ips[0]:<15} IP\n")
+                contador += 1
+        f_out.write(f"Total IPS:{contador}")
+    
+def leer_ips(fichero):
+    with open(fichero, "r") as f:
+        contenido = f.read()
+
+    print("Contenido del fichero:")
+    print(contenido)
+
+
+if __name__ == "__main__":
+    fichero_entrada = "ips.txt"
+    fichero_salida = "salida_ips.txt"
+
+    recuperar_ips(fichero_entrada, fichero_salida)
+
+    print("Proceso terminado.")
+    print("Revisa el fichero:", fichero_salida)
+
+    # Leer y mostrar el fichero generado
+    leer_ips(fichero_salida)
+
+
+if __name__ == "__main__":
+    fichero_entrada = "ips.txt"
+    fichero_salida = "salida_ips.txt"
+
+    recuperar_ips(fichero_entrada, fichero_salida)
+
+    print("Proceso terminado.")
+    print("Revisa el fichero:", fichero_salida)
