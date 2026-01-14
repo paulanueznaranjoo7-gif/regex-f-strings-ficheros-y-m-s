@@ -1,0 +1,42 @@
+import re
+def calcular_estadisticas(fichero_entrada, fichero_salida):
+    with open(fichero_entrada, "r") as f_in, open(fichero_salida, "w") as f_out:
+        pattern = pattern = r"[+-]?\d+"
+        suma = 0
+        for linea in f_in:
+            linea = linea.strip() + " "
+            numeros = re.findall(pattern, linea)
+            if numeros:
+                maximo = -1
+                minimo = 100000000
+                for numero in numeros:
+                    num = int(numero)
+                    suma += num 
+                    f_out.write(f"{num: 8}")
+                    if num > maximo:
+                        maximo = num
+                    if num < minimo:
+                        minimo = num
+                f_out.write("\n")
+        f_out.write(f"\nSuma:{suma}\nMáximo:{maximo}\nMínimo:{minimo}\n")
+        
+def leer_fichero(fichero):
+    """Lee un fichero y muestra su contenido línea por línea."""
+    try:
+        with open(fichero, "r") as f:
+            for linea in f:
+                print(linea, end="")  # end="" para no añadir dobles saltos de línea
+    except FileNotFoundError:
+        print(f"El fichero '{fichero}' no existe.")
+        
+if __name__ == "__main__":
+    calcular_estadisticas("entrada.txt", "salida.txt")
+    print("Contenido del fichero de salida:")
+    leer_fichero("salida.txt")
+
+
+
+if __name__ == "__main__":
+    calcular_estadisticas("entrada.txt", "salida.txt")
+    fichero_entrada = "entrada.txt"
+    fichero_salida = "salida.txt"
