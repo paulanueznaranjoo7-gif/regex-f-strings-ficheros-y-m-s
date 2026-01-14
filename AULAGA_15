@@ -1,0 +1,42 @@
+import re
+def separar_numeros_palabra(fichero_entrada, fichero_salida):
+    with open(fichero_entrada, "r") as f_in, open(fichero_salida, "w") as f_out:
+        pattern = r"[a-zA-Z]+\d\S*|\S*\d[a-zA-Z]+"
+        contador = 0
+        for linea in f_in:
+            palabras = re.findall(pattern, linea)
+            if palabras:
+                for palabra in palabras:
+                    con_numeros = ""
+                    sin_numeros = ""
+                    for c in palabra:
+                        if not c.isdigit():
+                            sin_numeros += c
+                        if c.isdigit():
+                            con_numeros += c
+                            
+                    contador += 1
+                            
+                f_out.write(f"{palabra:>30};{sin_numeros:>30};{con_numeros:>30}")
+        f_out.write(f"Total palabras con numeros encontradas: {contador}")
+                
+        
+
+
+if __name__ == "__main__":
+    fichero_entrada = "texto.txt"
+    fichero_salida = "salida_separar.txt"
+
+    separar_numeros_palabra(fichero_entrada, fichero_salida)
+
+    print("Proceso terminado.")
+    print("Revisa el fichero:", fichero_salida)
+    
+def leer_fichero(nombre_fichero):
+    with open(nombre_fichero, "r") as f:
+        for linea in f:
+            print(linea, end="")
+            
+if __name__ == "__main__":
+    fichero_salida = "salida_separar.txt"
+    leer_fichero(fichero_salida)
