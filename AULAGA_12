@@ -1,0 +1,40 @@
+ with open(fichero_entrada, "r") as f_in, open(fichero_salida, "w") as f_out:
+        pattern = r"https?://\S+"
+        contador = 0
+
+        for linea in f_in:
+            urls = re.findall(pattern, linea)
+            if urls:
+                for url in urls:
+                    if len(url) > 50:
+                        salida = url[:50]
+                        f_out.write(f"{salida}\n")
+                    else:
+                        salida = url + "..."
+                        f_out.write(f"{salida}\n")
+
+                    contador += 1
+
+        f_out.write(f"Total URLS: {contador}")
+
+
+
+if __name__ == "__main__":
+
+    fichero_entrada = "urls.txt"
+    fichero_salida = "salida_urls.txt"
+
+    recuperar_urls(fichero_entrada, fichero_salida)
+
+    print("Proceso terminado.")
+    print("Revisa el fichero:", fichero_salida)
+
+
+def leer_fichero(nombre_fichero):
+    with open(fichero_salida, "r") as f:
+        for linea in f:
+            print(linea, end="")
+            
+if __name__ == "__main__":
+    fichero_salida = "salida_urls.txt"
+    leer_fichero(fichero_salida)
