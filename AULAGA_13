@@ -1,0 +1,44 @@
+def escribir_puntos(coordenadas, fichero):
+    with open(fichero, "w") as f:
+        linea_actual = 1
+
+        for linea, columna in coordenadas:
+            # Escribimos líneas en blanco hasta llegar a la línea correcta
+            while linea_actual < linea:
+                f.write("\n")
+                linea_actual += 1
+
+            # En la línea correcta: espacios + punto
+            f.write(" " * columna + ".\n")
+            linea_actual += 1
+            
+            
+def leer_fichero(fichero):
+    with open(fichero, "r") as f:
+        for linea in f:
+            print(linea, end="")
+
+if __name__ == "__main__":
+    # Tupla de posiciones (línea, columna)
+    posiciones = (
+        (1, 5),
+        (3, 2),
+        (5, 10)
+    )
+
+    fichero = "puntos.txt"
+
+    # Escribir los puntos en el fichero
+    escribir_puntos(posiciones, fichero)
+
+    print("Fichero generado.")
+
+    # Leer las coordenadas desde el fichero
+    resultado = leer_fichero(fichero)
+
+    print("Coordenadas leídas del fichero:")
+    print(resultado)
+    
+
+
+   
