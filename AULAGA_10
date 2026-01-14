@@ -1,0 +1,54 @@
+def generar_informe_notas(fichero_entrada, notas):
+    with open(fichero_entrada, "r") as f_in, open(fichero_salida, "w") as f_out:
+        contador = 0
+        for linea in f_in:
+            elementos = linea.strip().split(";")
+            dni = elementos[0]
+            nombre = elementos[1]
+            dic[dni] = nota
+            for dni in fichero:
+                if dni in dic:
+                    f_out.write(f"{nombre}:{nota}")
+                    contador += 1
+        f_out.write(f"Total alumnos:{contador}")
+
+
+    # Diccionario de notas (DNI → nota)
+    notas = {
+        "12345678A": 7.5,
+        "87654321B": 8.0,
+        "11223344C": 4.5,
+        "55667788D": 6.0,
+        "99887766E": 9.0,
+        "22334455F": 5.5,
+        "66778899G": 3.0,
+        "33445566H": 7.0,
+        "00112233J": 6.5,
+        "44556677K": 8.5
+    }
+
+    fichero_entrada = "alumnos.txt"
+    generar_informe_notas(fichero_entrada, notas)
+
+    print("Proceso terminado.")
+    print("Se ha generado el informe de notas.")
+
+
+ 
+        
+def leer_fichero(fichero_salida):
+    with open(fichero_salida, "r") as f:
+        for linea in f:
+            print(linea, end="")
+
+if __name__ == "__main__":
+    fichero_salida = "salida.txt"   # el fichero que tú hayas creado
+
+    print("Contenido del fichero:")
+    leer_fichero(fichero_salida) 
+
+
+
+
+
+
