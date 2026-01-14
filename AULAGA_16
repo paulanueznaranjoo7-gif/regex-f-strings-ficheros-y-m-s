@@ -1,0 +1,56 @@
+def generar_factura(fichero_entrada, fichero_salida, productos):
+    with open(fichero_entrada, "r") as f_in, open(fichero_salida, "w") as f_out:
+        suma = 0
+        for linea in f_in:
+            produccion = linea.strip().split(":")
+            codigo = produccion[0].strip()
+            nombre = produccion[1].strip()
+            cantidad = produccion[2].strip()
+            new_cantidad = int(cantidad)
+            precios = productos[codigo]
+            total = new_cantidad * precios
+            suma += total
+            f_out.write(f"{codigo:<7}|{nombre:<30}|{cantidad:<5}|{precios:<10}|{total:<8}")
+        f_out.write(f"Importe total:{suma}")
+        
+        
+if __name__ == "__main__":
+
+    productos = {
+    "PROD-A101": 149.99,   # Monitor LED 24 Pulgadas
+    "SKU-998-B": 89.50,    # Teclado Mecánico RGB
+    "REF-0042": 29.95,     # Ratón Inalámbrico Pro
+    "CÓD_BET_7": 119.00,   # Auriculares Noise
+    "X-7722-ZZ": 59.90,    # Webcam Full HD 1080p
+    "ITEM001": 14.99,      # Alfombrilla XXL
+    "PRD/8844": 79.00,     # Altavoces Bluetooth 5.0
+    "LOG-Z1-9": 109.95,    # Disco SSD 1TB
+    "SYS_552": 74.50,      # Memoria RAM 16GB DDR4
+    "ART-99-C": 45.00      # Soporte Monitor Doble
+}
+
+    # Fichero de entrada con las ventas
+    fichero_entrada = "productos.txt"
+    fichero_salida = "salida.txt"
+
+    # Llamada a la función principal
+    generar_factura(fichero_entrada, fichero_salida, productos)
+
+    print("Factura generada correctamente.")
+
+def leer_fichero(fichero_salida):
+    with open(fichero_salida, "r") as f:
+        for linea in f:
+            print(linea, end="")
+            
+if __name__ == "__main__":
+    fichero_entrada = "productos.txt"
+    fichero_salida = "salida.txt"
+
+    generar_factura(fichero_entrada, fichero_salida, productos)
+
+    print("Factura generada correctamente.")
+    print("Contenido del fichero:")
+
+    leer_fichero(fichero_salida)
+
