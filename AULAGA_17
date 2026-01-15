@@ -1,0 +1,46 @@
+import re
+def filtrar_frases(fichero_entrada, fichero_salida, palabras_prohibidas):
+    with open(fichero_entrada, "r") as f_in, open(fichero_salida, "w") as f_out:
+        pattern = r"\b(niñ(o|a|os|as)|cas(a|as)|hombr(e|es))\b"
+        for linea in f_in:
+            palabras_prohibidas = re.findall(pattern, linea)
+            if not palabras_prohibidas:
+                f_out.write(f"{linea}")
+                
+        
+
+if __name__ == "__main__":
+
+    # Conjunto de palabras prohibidas (formas base)
+    palabras_prohibidas = {
+        "niño",
+        "perro",
+        "hombre",
+        "casa"
+    }
+
+    fichero_entrada = "frases.txt"
+    fichero_salida = "frases_filtradas.txt"
+
+    # Llamada a tu función
+    filtrar_frases(fichero_entrada, fichero_salida, palabras_prohibidas)
+
+    print("Proceso terminado.")
+    print("Revisa el fichero:", fichero_salida)
+    
+def leer_fichero(nombre_fichero):
+    with open(nombre_fichero, "r", encoding="utf-8") as f:
+        for linea in f:
+            print(linea, end="")
+if __name__ == "__main__":
+    fichero_entrada = "frases.txt"
+    fichero_salida = "frases_filtradas.txt"
+
+    palabras_prohibidas = {"niño", "perro", "hombre", "casa"}
+
+    # Llamas a TU función
+    filtrar_frases(fichero_entrada, fichero_salida, palabras_prohibidas)
+
+    print("Contenido del fichero generado:\n")
+    leer_fichero(fichero_salida)
+
