@@ -1,0 +1,39 @@
+def consultar_capitales(fichero_datos, fichero_consultas, fichero_salida):
+    with open(fichero_datos, "r") as f_in, open(fichero_consultas, "r") as f_out, open(fichero_salida, "w") as _out2:
+        datos = {}
+        for linea in f_in:
+            palabras = linea.strip().split(";")
+            pais = palabras[0]
+            ciudad = palabras[1]
+            datos[pais] = ciudad
+            
+        for linea in f_out:
+            pais = linea.strip()
+            if pais in datos:
+                ciudad = datos[pais]
+                _out2.write(f"{pais}: {ciudad}\n")
+            
+            
+            
+if __name__ == "__main__":
+
+    fichero_datos = "capitales.txt"
+    fichero_consultas = "consultas.txt"
+    fichero_salida = "resultado.txt"
+
+    consultar_capitales(fichero_datos, fichero_consultas, fichero_salida)
+
+    print("Fin del programa")
+
+def leer_fichero(nombre_fichero):
+    with open(nombre_fichero, "r", encoding="utf-8") as f:
+        for linea in f:
+            print(linea.strip())
+
+if __name__ == "__main__":
+
+    fichero = "resultado.txt"
+    leer_fichero(fichero)
+
+    print("Fin del programa")
+
