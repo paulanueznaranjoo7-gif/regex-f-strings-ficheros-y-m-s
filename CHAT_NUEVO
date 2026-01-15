@@ -1,0 +1,34 @@
+import re
+def separar_por_grupos_regex(fichero_entrada, fichero_salida):
+    with open(fichero_entrada, "r") as f_in, open(fichero_salida, "w") as f_out:
+        pattern = r"([A-Za-zí]+)?([-])(\d\S+)"
+        for linea in f_in:
+            for match in re.finditer(pattern, linea):
+                nombre = match.group(1)
+                curso = match.group(3)
+                f_out.write(f"{curso}:{nombre:>1}\n")
+        
+
+
+if __name__ == "__main__":
+
+    fichero_entrada = "alumnos.txt"
+    fichero_salida = "cursos.txt"
+
+    separar_por_grupos_regex(fichero_entrada, fichero_salida)
+
+    print("Fin del programa")
+
+def leer_fichero(nombre_fichero):
+    f = open(nombre_fichero, "r", encoding="utf-8")
+
+    for linea in f:
+        print(linea.strip())
+
+    f.close()
+if __name__ == "__main__":
+
+    fichero = "cursos.txt"
+    leer_fichero(fichero)
+
+    print("Fin del programa")
