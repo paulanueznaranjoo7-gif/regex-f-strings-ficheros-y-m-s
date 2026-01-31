@@ -1,0 +1,29 @@
+import re
+def calcular_suma(fichero_entrada, fichero_salida):
+    with open(fichero_entrada, "r") as f_in, open(fichero_salida, "w") as f_out:
+        pattern = r"[0-9]{1,4}+[,]+[0-9]{2}+\€"
+        suma_total = 0
+        for linea in f_in:
+            numeros_inferiores = re.findall(pattern, linea)
+            if numeros_inferiores:
+                for numero_inf in numeros_inferiores:
+                    a = numero_inf.replace(",", ".")
+                    numero_sin_euro = a[:-1]
+                    num = float(numero_sin_euro)
+                    suma_total += num
+                    f_out.write(f"{num:10.2f}€\n")
+        f_out.write(f"-" *11 + "\n")
+        f_out.write(f"Suma total: {suma_total}€\n")
+            
+        
+fichero_entrada = "texto_de_prueba"   
+fichero_salida = "cuentas.txt"
+            
+        
+
+
+
+
+if __name__ == "__main__":
+    calcular_suma("texto_de_prueba.txt", "cuentas.txt")
+    print(open("cuentas.txt").read())
