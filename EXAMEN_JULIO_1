@@ -1,0 +1,14 @@
+import re
+def validar_correo(correo):
+    lista = []
+    pattern = r"[A-Za-z0-9]+([._-]?)@[A-Za-z0-9_]+([._-]?)\.[A-Za-z]{2,}"
+    if re.fullmatch(pattern, correo):
+        lista.append(correo)
+        return lista
+        
+
+if __name__ == "__main__":
+    print(validar_correo("ejemplo@dominio.com"))  # True
+    print(validar_correo("correo@sin_espacio.com"))  # True
+    print(validar_correo(".invalido@correo.com"))  # False
+    print(validar_correo("usuario@dominio con espacio.com"))  # False
